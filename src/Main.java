@@ -18,8 +18,8 @@ public class Main {
         String encriptadacajero1= PasswordUtils.hashPassword(contracajero1);
         String encriptadacajero2= PasswordUtils.hashPassword(contracajero2);
         String encriptadacajero3= PasswordUtils.hashPassword(contracajero3);
-        String connectionString = "mongodb+srv://adriancadena:tadio1234@cluster0.pqiuxu4.mongodb.net/";
-       /* try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+        String conexion = "mongodb+srv://adriancadena:tadio1234@cluster0.pqiuxu4.mongodb.net/";
+       /* try (MongoClient mongoClient = MongoClients.create(conexion)) {
             MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
             MongoCollection<Document> collection = database.getCollection("Administrador");
 
@@ -45,7 +45,38 @@ public class Main {
         }
 
 
+
+*//*
+        try (MongoClient mongoClient = MongoClients.create(conexion)) {
+            MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
+            MongoCollection<Document> collection = database.getCollection("Productos");
+
+            Document doc = new Document("nombre", "bujia")
+                    .append("precio",48 )
+                    .append("stock",20);
+            collection.insertOne(doc);
+            Document doc2 = new Document("nombre", "bomba de agua")
+                    .append("precio",210 )
+                    .append("stock",12);
+            collection.insertOne(doc2);
+            Document doc3 = new Document("nombre", "caja de cambios")
+                    .append("precio",350 )
+                    .append("stock",5);
+            collection.insertOne(doc3);
+            Document doc4 = new Document("nombre", "amortiguadores")
+                    .append("precio",150 )
+                    .append("stock",8);
+            collection.insertOne(doc4);
+            Document doc5 = new Document("nombre", "bateria")
+                    .append("precio",400 )
+                    .append("stock",20);
+            collection.insertOne(doc5);
+
+
+
+        }
 */
+
 
         JFrame frame = new JFrame("Mi aplicación");
         frame.setContentPane(new form1().panel1);
