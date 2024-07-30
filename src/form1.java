@@ -19,8 +19,8 @@ public class form1 {
             public void actionPerformed(ActionEvent e) {
                 String usuario = textField1.getText();
                 String clave = new String(passwordField1.getPassword());
-                String connectionString = "mongodb+srv://adriancadena:tadio1234@cluster0.pqiuxu4.mongodb.net/";
-                try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+                String conexion = "mongodb+srv://adriancadena:tadio1234@cluster0.pqiuxu4.mongodb.net/";
+                try (MongoClient mongoClient = MongoClients.create(conexion)) {
 
                     MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
                     MongoCollection<Document> collection = database.getCollection("Administrador");
@@ -38,6 +38,16 @@ public class form1 {
                         String hashedInputPassword = PasswordUtils.hashPassword(clave);
                         if (hashedInputPassword.equals(storedHashedPassword)) {
                             JOptionPane.showMessageDialog(button1, "Ingreso como Admin");
+                            JFrame frame = new JFrame("Mi aplicación");
+                            frame.setContentPane(new admin().a);
+                            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            frame.setSize(1000, 1000);
+                            frame.setLocationRelativeTo(null);
+                            frame.pack();
+                            frame.setVisible(true);
+                            ((JFrame) SwingUtilities.getWindowAncestor(button1)).dispose();
+
+
                         } else {
                             JOptionPane.showMessageDialog(button1, "Contraseña incorrecta");
                         }

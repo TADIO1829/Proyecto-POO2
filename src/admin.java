@@ -18,6 +18,14 @@ public class admin {
         ActualizarProductosbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Mi aplicación");
+                frame.setContentPane(new actualizar().panel1);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(1000, 1000);
+                frame.setLocationRelativeTo(null);
+                frame.pack();
+                frame.setVisible(true);
+                ((JFrame) SwingUtilities.getWindowAncestor(ActualizarProductosbutton)).dispose();
 
 
 
