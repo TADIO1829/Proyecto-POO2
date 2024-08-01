@@ -11,5 +11,6 @@
     <orderEntry type="library" name="connectbot.jbcrypt" level="project" />
     <orderEntry type="library" name="de.svenkubiak.jBCrypt" level="project" />
     <orderEntry type="library" name="mindrot.jbcrypt" level="project" />
+    <orderEntry type="library" name="itextpdf" level="project" />
   </component>
 </module>

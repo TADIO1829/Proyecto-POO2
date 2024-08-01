@@ -76,15 +76,16 @@ public class Main {
 
         }
 */
-
-
         JFrame frame = new JFrame("Mi aplicación");
-        frame.setContentPane(new form1().panel1);
+        frame.setContentPane(new Cajero().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setLocationRelativeTo(null);
 
         frame.setVisible(true);
+
+        int[] arreglo = {5, 10, 15, 20};
+        System.out.println(arreglo[3]);
 
 
 

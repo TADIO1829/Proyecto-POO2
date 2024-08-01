@@ -43,7 +43,7 @@ public class form1 {
                             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                             frame.setSize(1000, 1000);
                             frame.setLocationRelativeTo(null);
-                            frame.pack();
+
                             frame.setVisible(true);
                             ((JFrame) SwingUtilities.getWindowAncestor(button1)).dispose();
 
@@ -56,6 +56,15 @@ public class form1 {
                         String hashedInputPassword = PasswordUtils.hashPassword(clave);
                         if (hashedInputPassword.equals(storedHashedPassword)) {
                             JOptionPane.showMessageDialog(button1, "Ingreso como Cajero");
+                            JFrame frame = new JFrame("Mi aplicación");
+                            frame.setContentPane(new Cajero().panel1);
+                            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            frame.setSize(1000, 1000);
+                            frame.setLocationRelativeTo(null);
+
+                            frame.setVisible(true);
+                            ((JFrame) SwingUtilities.getWindowAncestor(button1)).dispose();
+
                         } else {
                             JOptionPane.showMessageDialog(button1, "Contraseña incorrecta");
                         }
