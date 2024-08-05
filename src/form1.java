@@ -36,8 +36,12 @@ public class form1 {
                     if (user != null) {
                         String storedHashedPassword = user.getString("contraseniaa"); //
                         String hashedInputPassword = PasswordUtils.hashPassword(clave);
+
                         if (hashedInputPassword.equals(storedHashedPassword)) {
+                            String nombreadmin=user.getString("nombre");
+                            Usador.getInstance().setNombre(nombreadmin);
                             JOptionPane.showMessageDialog(button1, "Ingreso como Admin");
+                            JOptionPane.showMessageDialog(button1, "Bienvenido: "+Usador.getInstance().getNombre());
                             JFrame frame = new JFrame("Mi aplicación");
                             frame.setContentPane(new admin().a);
                             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +59,10 @@ public class form1 {
                         String storedHashedPassword = user2.getString("contraseniaa"); //
                         String hashedInputPassword = PasswordUtils.hashPassword(clave);
                         if (hashedInputPassword.equals(storedHashedPassword)) {
+                            String nombrecajero=user2.getString("nombre");
+                            Usador.getInstance().setNombre(nombrecajero);
                             JOptionPane.showMessageDialog(button1, "Ingreso como Cajero");
+                            JOptionPane.showMessageDialog(button1, "Bienvenido: "+Usador.getInstance().getNombre());
                             JFrame frame = new JFrame("Mi aplicación");
                             frame.setContentPane(new Cajero().panel1);
                             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -5,7 +5,10 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.mindrot.jbcrypt.BCrypt;
 
+
 import javax.swing.*;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,34 +22,39 @@ public class Main {
         String encriptadacajero2= PasswordUtils.hashPassword(contracajero2);
         String encriptadacajero3= PasswordUtils.hashPassword(contracajero3);
         String conexion = "mongodb+srv://adriancadena:tadio1234@cluster0.pqiuxu4.mongodb.net/";
-       /* try (MongoClient mongoClient = MongoClients.create(conexion)) {
+       /*try (MongoClient mongoClient = MongoClients.create(conexion)) {
             MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
             MongoCollection<Document> collection = database.getCollection("Administrador");
 
             Document doc = new Document("correo", "adriancadena@gmail.com")
-                    .append("contraseniaa", encriptada);
+                    .append("contraseniaa", encriptada)
+                    .append("nombre","Adrian");
             collection.insertOne(doc);
 
         }
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+        try (MongoClient mongoClient = MongoClients.create(conexion)) {
             MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
             MongoCollection<Document> collection = database.getCollection("Cajeros");
 
             Document doc = new Document("correo", "tadeoherrera@gmail.com")
-                    .append("contraseniaa", encriptadacajero1);
+                    .append("contraseniaa", encriptadacajero1)
+                    .append("nombre","Tadeo");
             collection.insertOne(doc);
             Document doc2 = new Document("correo", "carlosaguilar@gmail.com")
-                    .append("contraseniaa", encriptadacajero2);
+                    .append("contraseniaa", encriptadacajero2)
+                    .append("nombre","Carlos");
             collection.insertOne(doc2);
             Document doc3 = new Document("correo", "patricioherrera.com")
-                    .append("contraseniaa", encriptadacajero3);
+                    .append("contraseniaa", encriptadacajero3)
+                    .append("nombre","Patricio");
             collection.insertOne(doc3);
 
         }
 
 
 
-*//*
+*/
+        /*
         try (MongoClient mongoClient = MongoClients.create(conexion)) {
             MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
             MongoCollection<Document> collection = database.getCollection("Productos");
@@ -72,10 +80,9 @@ public class Main {
                     .append("stock",20);
             collection.insertOne(doc5);
 
-
-
         }
 */
+
         JFrame frame = new JFrame("Mi aplicación");
         frame.setContentPane(new Cajero().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,8 +91,9 @@ public class Main {
 
         frame.setVisible(true);
 
-        int[] arreglo = {5, 10, 15, 20};
-        System.out.println(arreglo[3]);
+
+
+
 
 
 

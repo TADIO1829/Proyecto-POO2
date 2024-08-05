@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -15,10 +16,9 @@ import com.mongodb.client.MongoCollection;
 import java.text.SimpleDateFormat;
 
 
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.util.Date;
-
 
 public class Cajero {
     public JPanel panel1;
@@ -29,7 +29,7 @@ public class Cajero {
     int stock;
     double precio;
     int resta;
-
+    String imagen;
 
 
     public Cajero() {
@@ -42,6 +42,8 @@ public class Cajero {
                 resta=stock*-1;
                 if (nombre.equals("bujia")){
                     precio=350;
+                    imagen="C:\\Users\\stefi\\IdeaProjects\\Proyecto-POO2\\imagenes\\bujia.jpg";
+
                 };
                 if (nombre.equals("bomba de agua")){
                     precio=350;
@@ -55,23 +57,25 @@ public class Cajero {
                 String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
                 Productos produc=new Productos(stock,nombre,precio);
                 String nombreArchivo = "ReporteDeVenta" + timestamp + ".pdf";
-
+                String carpeta="C:\\Users\\stefi\\IdeaProjects\\Proyecto-POO2\\reportes"; /*CAMBIAR RUTA*/
+                String nombreyruta=carpeta+"/"+nombreArchivo;
                 Document document = new Document();
                 try {
-                    String ruta=System.getProperty("user.home");
 
-                    PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
+                    PdfWriter.getInstance(document, new FileOutputStream(nombreyruta));
                     document.open();
                     PdfPTable tabla=new PdfPTable(3);
                     tabla.addCell("Nombre");
                     tabla.addCell("Producto");
                     tabla.addCell("Total");
 
-                    // Añadir contenido al documento
                     document.add(new Paragraph("Factura"));
+                    document.add(new Paragraph("Hecha por: "+Usador.getInstance().getNombre()));
                     document.add(new Paragraph("Nombre del Producto: " + produc.getNombre()));
                     document.add(new Paragraph("Cantidad: " + produc.getStock()));
                     document.add(new Paragraph("Total: $" + (precio *stock)));
+                    Image image = Image.getInstance(imagen);
+                    document.add(image);
 
                     System.out.println("Factura creada exitosamente.");
 
@@ -80,6 +84,11 @@ public class Cajero {
                 } finally {
                     document.close();
                 }
+
+
+
+
+
                 String conexion = "mongodb+srv://adriancadena:tadio1234@cluster0.pqiuxu4.mongodb.net/";
 
                 try (MongoClient mongoClient = MongoClients.create(conexion)) {
@@ -93,6 +102,8 @@ public class Cajero {
 
 
                 }
+
+
 
 
 
