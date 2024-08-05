@@ -2,8 +2,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
 import org.bson.Document;
 
 import javax.swing.*;
@@ -14,17 +12,19 @@ public class actualizar {
     public JPanel panel1;
     public JTextField textField1;
     public JTextField textField2;
-    public JButton button1;
+    public JButton Actualizar;
+    public JButton volverButton;
     String nombre=" ";
     int stock;
-    Productos productos=new Productos(nombre,stock);
+
 
     public actualizar() {
-        button1.addActionListener(new ActionListener() {
+        Actualizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 nombre = textField1.getText();
                 stock = Integer.parseInt(textField2.getText());
+                Productos productos=new Productos(nombre,stock);
 
                 String conexion = "mongodb+srv://adriancadena:tadio1234@cluster0.pqiuxu4.mongodb.net/";
 
@@ -32,8 +32,8 @@ public class actualizar {
 
                     MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
                     MongoCollection<Document> collection = database.getCollection("Productos");
-                    Document busqueda = new Document("nombre", nombre);
-                    Document actualizar = new Document("$inc", new Document("stock", stock));
+                    Document busqueda = new Document("nombre", productos.getNombre());
+                    Document actualizar = new Document("$inc", new Document("stock", productos.getStock()));
                     collection.updateOne(busqueda, actualizar);
                     System.out.println("Documento actualizado exitosamente");
 
@@ -41,7 +41,19 @@ public class actualizar {
                 }
             }
             });
-        }
+        volverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Mi aplicación");
+                frame.setContentPane(new admin().a);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(500, 500);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+                ((JFrame) SwingUtilities.getWindowAncestor(volverButton)).dispose();
+            }
+        });
+    }
     }
 
 

@@ -2,21 +2,17 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+
 import java.text.SimpleDateFormat;
-
-
-
 import java.io.IOException;
 import java.util.Date;
 
@@ -30,6 +26,7 @@ public class Cajero {
     double precio;
     int resta;
     String imagen;
+    String busqueda;
 
 
     public Cajero() {
@@ -40,10 +37,9 @@ public class Cajero {
                 nombre = textField1.getText();
                 stock = Integer.parseInt(textField2.getText());
                 resta=stock*-1;
+
                 if (nombre.equals("bujia")){
                     precio=350;
-                    imagen="C:\\Users\\stefi\\IdeaProjects\\Proyecto-POO2\\imagenes\\bujia.jpg";
-
                 };
                 if (nombre.equals("bomba de agua")){
                     precio=350;
@@ -54,28 +50,72 @@ public class Cajero {
                 if (nombre.equals("bateria")){
                     precio=400;
                 };
+                String conexion = "mongodb+srv://adriancadena:tadio1234@cluster0.pqiuxu4.mongodb.net/";
+                MongoClient mongoClient = MongoClients.create(conexion);
+                MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
+                MongoCollection<org.bson.Document> collection = database.getCollection("Imagenes");
+                org.bson.Document documento = collection.find(Filters.eq("nombre", nombre)).first();
+                if (documento != null) {
+                    imagen = documento.getString("ruta");
+                    System.out.println("Ruta de la imagen " + imagen);
+                }
+
                 String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
                 Productos produc=new Productos(stock,nombre,precio);
                 String nombreArchivo = "ReporteDeVenta" + timestamp + ".pdf";
                 String carpeta="C:\\Users\\stefi\\IdeaProjects\\Proyecto-POO2\\reportes"; /*CAMBIAR RUTA*/
                 String nombreyruta=carpeta+"/"+nombreArchivo;
                 Document document = new Document();
-                try {
 
+                try {
+                    Image image = Image.getInstance(imagen);
                     PdfWriter.getInstance(document, new FileOutputStream(nombreyruta));
                     document.open();
-                    PdfPTable tabla=new PdfPTable(3);
-                    tabla.addCell("Nombre");
-                    tabla.addCell("Producto");
-                    tabla.addCell("Total");
+                    Paragraph title = new Paragraph("FACTURA", new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD));
+                    title.setAlignment(Element.ALIGN_CENTER);
+                    document.add(title);
 
-                    document.add(new Paragraph("Factura"));
-                    document.add(new Paragraph("Hecha por: "+Usador.getInstance().getNombre()));
-                    document.add(new Paragraph("Nombre del Producto: " + produc.getNombre()));
-                    document.add(new Paragraph("Cantidad: " + produc.getStock()));
-                    document.add(new Paragraph("Total: $" + (precio *stock)));
-                    Image image = Image.getInstance(imagen);
-                    document.add(image);
+                    document.add(new Paragraph(" "));
+                    document.add(new Paragraph("AutoPartsXpress"));
+                    document.add(new Paragraph(" "));
+
+
+                    document.add(new Paragraph("Cajero: " + Usador.getInstance().getNombre()));
+                    document.add(new Paragraph(" "));
+
+                    PdfPTable table = new PdfPTable(5);
+                    table.setWidthPercentage(100);
+                    table.setSpacingBefore(10f);
+                    table.setSpacingAfter(10f);
+
+                    PdfPCell cell = new PdfPCell(new Phrase("Descripción", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+                    table.addCell(cell);
+                    cell.setPhrase(new Phrase("Cantidad", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+                    table.addCell(cell);
+                    cell.setPhrase(new Phrase("Imagen", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+                    table.addCell(cell);
+                    cell.setPhrase(new Phrase("Precio Unitario", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+                    table.addCell(cell);
+                    cell.setPhrase(new Phrase("Total", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+                    table.addCell(cell);
+
+                    table.addCell(new Phrase(produc.getNombre()));
+                    table.addCell(String.valueOf(produc.getStock()));
+                    table.addCell(image);
+                    table.addCell(String.format("$%.2f", precio));
+                    table.addCell(String.format("$%.2f", precio * produc.getStock()));
+
+                    document.add(table);
+
+
+                    Paragraph total = new Paragraph(String.format("Total a Pagar: $%.2f", precio * produc.getStock()), new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+                    total.setAlignment(Element.ALIGN_RIGHT);
+                    document.add(total);
+
+
+
+                    System.out.println("Factura creada exitosamente.");
+
 
                     System.out.println("Factura creada exitosamente.");
 
@@ -89,19 +129,15 @@ public class Cajero {
 
 
 
-                String conexion = "mongodb+srv://adriancadena:tadio1234@cluster0.pqiuxu4.mongodb.net/";
 
-                try (MongoClient mongoClient = MongoClients.create(conexion)) {
 
-                    MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
-                    MongoCollection<org.bson.Document> collection = database.getCollection("Productos");
+                    MongoCollection<org.bson.Document> collection2 = database.getCollection("Productos");
                     org.bson.Document busqueda = new org.bson.Document("nombre", nombre);
                     org.bson.Document actualizar = new org.bson.Document("$inc", new org.bson.Document("stock", resta));
-                    collection.updateOne(busqueda, actualizar);
-                    System.out.println("Documento actualizado exitosamente");
+                    collection2.updateOne(busqueda, actualizar);
 
 
-                }
+
 
 
 

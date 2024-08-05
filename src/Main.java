@@ -81,12 +81,38 @@ public class Main {
             collection.insertOne(doc5);
 
         }
-*/
+*//*
+        try (MongoClient mongoClient = MongoClients.create(conexion)) {
+            MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
+            MongoCollection<Document> collection = database.getCollection("Imagenes");
+            String bujiaimagen="C:\\Users\\stefi\\IdeaProjects\\Proyecto-POO2\\imagenes\\bujia.jpg";
+            String bombaimagen="C:\\Users\\stefi\\IdeaProjects\\Proyecto-POO2\\imagenes\\bomba_agua (1).jpg";
+            String cajadecambiosimagen="C:\\Users\\stefi\\IdeaProjects\\Proyecto-POO2\\imagenes\\caja (1).jpg";
+            String amortiguadoresimagen="C:\\Users\\stefi\\IdeaProjects\\Proyecto-POO2\\imagenes\\amortiguadores-700 (1).jpg";
+            String Baterias="C:\\Users\\stefi\\IdeaProjects\\Proyecto-POO2\\imagenes\\bateria.jpg";
 
+            Document doc = new Document("nombre", "bujia")
+                    .append("ruta",bujiaimagen );
+            collection.insertOne(doc);
+            Document doc2 = new Document("nombre", "bomba de agua")
+                    .append("ruta",bombaimagen );
+            collection.insertOne(doc2);
+            Document doc3 = new Document("nombre", "caja de cambios")
+                    .append("ruta",cajadecambiosimagen );
+            collection.insertOne(doc3);
+            Document doc4 = new Document("nombre", "amortiguadores")
+                    .append("ruta",amortiguadoresimagen );
+            collection.insertOne(doc4);
+            Document doc5 = new Document("nombre", "bateria")
+                    .append("ruta",Baterias);
+            collection.insertOne(doc5);
+
+        }
+*/
         JFrame frame = new JFrame("Mi aplicación");
-        frame.setContentPane(new Cajero().panel1);
+        frame.setContentPane(new form1().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
+        frame.setSize(500, 500);
         frame.setLocationRelativeTo(null);
 
         frame.setVisible(true);
