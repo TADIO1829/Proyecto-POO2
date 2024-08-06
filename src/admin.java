@@ -20,13 +20,10 @@ public class admin {
                 JFrame frame = new JFrame("Mi aplicación");
                 frame.setContentPane(new actualizar().panel1);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(1000, 1000);
+                frame.setSize(500, 500);
                 frame.setLocationRelativeTo(null);
-                frame.pack();
                 frame.setVisible(true);
                 ((JFrame) SwingUtilities.getWindowAncestor(ActualizarProductosbutton)).dispose();
-
-
 
             }
 
@@ -37,9 +34,8 @@ public class admin {
                 JFrame frame = new JFrame("Mi aplicación");
                 frame.setContentPane(new cajeros().panel1);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(1000, 1000);
+                frame.setSize(500, 500);
                 frame.setLocationRelativeTo(null);
-                frame.pack();
                 frame.setVisible(true);
                 ((JFrame) SwingUtilities.getWindowAncestor(agregarCajerosButton)).dispose();
 

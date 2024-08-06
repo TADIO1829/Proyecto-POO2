@@ -45,7 +45,7 @@ public class form1 {
                             JFrame frame = new JFrame("Mi aplicación");
                             frame.setContentPane(new admin().a);
                             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                            frame.setSize(1000, 1000);
+                            frame.setSize(500, 500);
                             frame.setLocationRelativeTo(null);
 
                             frame.setVisible(true);
@@ -66,7 +66,7 @@ public class form1 {
                             JFrame frame = new JFrame("Mi aplicación");
                             frame.setContentPane(new Cajero().panel1);
                             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                            frame.setSize(1000, 1000);
+                            frame.setSize(500, 500);
                             frame.setLocationRelativeTo(null);
 
                             frame.setVisible(true);

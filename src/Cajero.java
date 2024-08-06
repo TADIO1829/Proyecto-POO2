@@ -21,12 +21,13 @@ public class Cajero {
     public JTextField textField1;
     public JTextField textField2;
     public JButton terminarCompraButton;
+    private JButton volverButton;
     String nombre=" ";
     int stock;
     double precio;
     int resta;
     String imagen;
-    String busqueda;
+
 
 
     public Cajero() {
@@ -82,6 +83,7 @@ public class Cajero {
 
                     document.add(new Paragraph("Cajero: " + Usador.getInstance().getNombre()));
                     document.add(new Paragraph(" "));
+                    //CREACION DE LA TABLA
 
                     PdfPTable table = new PdfPTable(5);
                     table.setWidthPercentage(100);
@@ -98,26 +100,17 @@ public class Cajero {
                     table.addCell(cell);
                     cell.setPhrase(new Phrase("Total", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
                     table.addCell(cell);
-
                     table.addCell(new Phrase(produc.getNombre()));
                     table.addCell(String.valueOf(produc.getStock()));
                     table.addCell(image);
                     table.addCell(String.format("$%.2f", precio));
                     table.addCell(String.format("$%.2f", precio * produc.getStock()));
-
                     document.add(table);
-
-
                     Paragraph total = new Paragraph(String.format("Total a Pagar: $%.2f", precio * produc.getStock()), new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
                     total.setAlignment(Element.ALIGN_RIGHT);
                     document.add(total);
-
-
-
                     System.out.println("Factura creada exitosamente.");
 
-
-                    System.out.println("Factura creada exitosamente.");
 
                 } catch (DocumentException | IOException a) {
                     System.err.println("Error al crear el PDF: " + a.getMessage());
@@ -144,6 +137,18 @@ public class Cajero {
 
 
 
+            }
+        });
+        volverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Mi aplicación");
+                frame.setContentPane(new admin().a);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(500, 500);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+                ((JFrame) SwingUtilities.getWindowAncestor(volverButton)).dispose();
             }
         });
     }

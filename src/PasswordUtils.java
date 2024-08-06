@@ -1,9 +1,13 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-//Para esto se uso chatgpt por que ni idea como se hacia
-
 public class PasswordUtils {
+    /**
+     * Genera un hash SHA-256 de la contraseña proporcionada.
+     *
+     * @param password La contraseña a ser cifrada.
+     * @return El hash SHA-256 de la contraseña.
+     */
     public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
