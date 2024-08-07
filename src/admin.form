@@ -46,7 +46,7 @@
         </constraints>
         <properties>
           <foreground color="-16777216"/>
-          <text value="Bienvenido"/>
+          <text value="¿Que desea hacer ?"/>
         </properties>
       </component>
       <vspacer id="69d7f">

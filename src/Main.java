@@ -110,7 +110,7 @@ public class Main {
         }
 */
         JFrame frame = new JFrame("Mi aplicación");
-        frame.setContentPane(new form1().panel1);
+        frame.setContentPane(new Cajero().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
         frame.setLocationRelativeTo(null);

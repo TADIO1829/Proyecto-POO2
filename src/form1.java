@@ -25,12 +25,8 @@ public class form1 {
                     MongoDatabase database = mongoClient.getDatabase("AutoPartsXpress");
                     MongoCollection<Document> collection = database.getCollection("Administrador");
                     MongoCollection<Document> collection2 = database.getCollection("Cajeros");
-
-
                     Document query = new Document("correo", usuario);
-
-
-                     Document user = collection.find(query).first();
+                    Document user = collection.find(query).first();
                     Document user2=collection2.find(query).first();
 
                     if (user != null) {
